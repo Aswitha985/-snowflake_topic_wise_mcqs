@@ -39,7 +39,11 @@ export const getQuestionsByTopic = async (topic) => {
     return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.error("Error getting questions:", error);
-    return [];
+    const localQuestions = (await import('./localQuestions.js')).default;
+    if (topic) {
+      return localQuestions.filter(q => q.topic === topic);
+    }
+return localQuestions;
   }
 
 };

@@ -1,5 +1,6 @@
 import { addQuestion } from './services/firebase.js';
 import localQuestions from './services/questions.js';
+import localQuestions from './services/localQuestions.js';
 
 async function uploadDataset() {
   console.log('Uploading 70 questions to Firebase...');
