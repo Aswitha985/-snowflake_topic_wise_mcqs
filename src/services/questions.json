@@ -1,0 +1,394 @@
+[
+  {
+    "id": 1,
+    "question": "Who developed Python?",
+    "options": ["Guido van Rossum", "Bill Gates", "Elon Musk", "Steve Jobs"],
+    "answer": "Guido van Rossum",
+    "topic": "Python"
+  },
+  {
+    "id": 2,
+    "question": "Python is which type of language?",
+    "options": ["Compiled", "Interpreted", "Assembly", "Machine"],
+    "answer": "Interpreted",
+    "topic": "Python"
+  },
+  {
+    "id": 3,
+    "question": "What is the extension of Python file?",
+    "options": [".py", ".java", ".cpp", ".js"],
+    "answer": ".py",
+    "topic": "Python"
+  },
+  {
+    "id": 4,
+    "question": "Which function prints output?",
+    "options": ["print()", "echo()", "show()", "display()"],
+    "answer": "print()",
+    "topic": "Python"
+  },
+  {
+    "id": 5,
+    "question": "Which symbol is used for comments?",
+    "options": ["#", "//", "/* */", "<!-- -->"],
+    "answer": "#",
+    "topic": "Python"
+  },
+  {
+    "id": 6,
+    "question": "Which keyword is used to define a function?",
+    "options": ["def", "function", "fun", "define"],
+    "answer": "def",
+    "topic": "Python"
+  },
+  {
+    "id": 7,
+    "question": "Which is a valid variable name?",
+    "options": ["1var", "_var", "var-name", "var name"],
+    "answer": "_var",
+    "topic": "Python"
+  },
+  {
+    "id": 8,
+    "question": "Which data type stores text?",
+    "options": ["int", "str", "float", "bool"],
+    "answer": "str",
+    "topic": "Python"
+  },
+  {
+    "id": 9,
+    "question": "Which data type stores numbers?",
+    "options": ["str", "int", "list", "dict"],
+    "answer": "int",
+    "topic": "Python"
+  },
+  {
+    "id": 10,
+    "question": "Which is a float?",
+    "options": ["10", "10.5", "'10'", "True"],
+    "answer": "10.5",
+    "topic": "Python"
+  },
+  {
+    "id": 11,
+    "question": "Which is a boolean value?",
+    "options": ["Yes", "True", "1", "None"],
+    "answer": "True",
+    "topic": "Python"
+  },
+  {
+    "id": 12,
+    "question": "What is type of 'Hello'?",
+    "options": ["int", "str", "float", "bool"],
+    "answer": "str",
+    "topic": "Python"
+  },
+  {
+    "id": 13,
+    "question": "Which is immutable?",
+    "options": ["list", "tuple", "set", "dict"],
+    "answer": "tuple",
+    "topic": "Python"
+  },
+  {
+    "id": 14,
+    "question": "Which is mutable?",
+    "options": ["tuple", "str", "list", "int"],
+    "answer": "list",
+    "topic": "Python"
+  },
+  {
+    "id": 15,
+    "question": "What is type of 5.0?",
+    "options": ["int", "float", "str", "bool"],
+    "answer": "float",
+    "topic": "Python"
+  },
+  {
+    "id": 16,
+    "question": "Which keyword is used for condition?",
+    "options": ["if", "for", "while", "def"],
+    "answer": "if",
+    "topic": "Python"
+  },
+  {
+    "id": 17,
+    "question": "Which loop is used for iteration?",
+    "options": ["for", "loop", "iterate", "repeat"],
+    "answer": "for",
+    "topic": "Python"
+  },
+  {
+    "id": 18,
+    "question": "Which keyword exits loop?",
+    "options": ["stop", "break", "exit", "end"],
+    "answer": "break",
+    "topic": "Python"
+  },
+  {
+    "id": 19,
+    "question": "Which keyword skips iteration?",
+    "options": ["skip", "continue", "pass", "break"],
+    "answer": "continue",
+    "topic": "Python"
+  },
+  {
+    "id": 20,
+    "question": "Which keyword does nothing?",
+    "options": ["pass", "skip", "none", "null"],
+    "answer": "pass",
+    "topic": "Python"
+  },
+  {
+    "id": 21,
+    "question": "Which operator is for addition?",
+    "options": ["+", "-", "*", "/"],
+    "answer": "+",
+    "topic": "Python"
+  },
+  {
+    "id": 22,
+    "question": "Which operator is for multiplication?",
+    "options": ["*", "+", "-", "/"],
+    "answer": "*",
+    "topic": "Python"
+  },
+  {
+    "id": 23,
+    "question": "Which operator is division?",
+    "options": ["/", "*", "+", "-"],
+    "answer": "/",
+    "topic": "Python"
+  },
+  {
+    "id": 24,
+    "question": "Which operator gives remainder?",
+    "options": ["%", "/", "*", "+"],
+    "answer": "%",
+    "topic": "Python"
+  },
+  {
+    "id": 25,
+    "question": "Which operator is power?",
+    "options": ["**", "^", "*", "%"],
+    "answer": "**",
+    "topic": "Python"
+  },
+  {
+    "id": 26,
+    "question": "Which keyword is for loop?",
+    "options": ["for", "while", "loop", "repeat"],
+    "answer": "for",
+    "topic": "Python"
+  },
+  {
+    "id": 27,
+    "question": "Which keyword is for while loop?",
+    "options": ["while", "loop", "repeat", "for"],
+    "answer": "while",
+    "topic": "Python"
+  },
+  {
+    "id": 28,
+    "question": "Which keyword is for function?",
+    "options": ["def", "func", "function", "define"],
+    "answer": "def",
+    "topic": "Python"
+  },
+  {
+    "id": 29,
+    "question": "Which keyword returns value?",
+    "options": ["return", "give", "output", "send"],
+    "answer": "return",
+    "topic": "Python"
+  },
+  {
+    "id": 30,
+    "question": "Which keyword imports modules?",
+    "options": ["import", "include", "require", "use"],
+    "answer": "import",
+    "topic": "Python"
+  },
+  {
+    "id": 31,
+    "question": "Which data type is ordered?",
+    "options": ["list", "set", "dict", "None"],
+    "answer": "list",
+    "topic": "Python"
+  },
+  {
+    "id": 32,
+    "question": "Which data type has key-value pairs?",
+    "options": ["dict", "list", "set", "tuple"],
+    "answer": "dict",
+    "topic": "Python"
+  },
+  {
+    "id": 33,
+    "question": "Which data type stores unique values?",
+    "options": ["set", "list", "tuple", "dict"],
+    "answer": "set",
+    "topic": "Python"
+  },
+  {
+    "id": 34,
+    "question": "Which keyword defines class?",
+    "options": ["class", "object", "define", "struct"],
+    "answer": "class",
+    "topic": "Python"
+  },
+  {
+    "id": 35,
+    "question": "Which keyword is boolean?",
+    "options": ["True", "Yes", "1", "On"],
+    "answer": "True",
+    "topic": "Python"
+  },
+  {
+    "id": 36,
+    "question": "Which is False value?",
+    "options": ["False", "No", "0", "None"],
+    "answer": "False",
+    "topic": "Python"
+  },
+  {
+    "id": 37,
+    "question": "Which function takes input?",
+    "options": ["input()", "get()", "read()", "scan()"],
+    "answer": "input()",
+    "topic": "Python"
+  },
+  {
+    "id": 38,
+    "question": "Which is not keyword?",
+    "options": ["var", "if", "else", "for"],
+    "answer": "var",
+    "topic": "Python"
+  },
+  {
+    "id": 39,
+    "question": "Which is identifier?",
+    "options": ["variable name", "keyword", "operator", "symbol"],
+    "answer": "variable name",
+    "topic": "Python"
+  },
+  {
+    "id": 40,
+    "question": "Which cannot be variable name?",
+    "options": ["1abc", "_abc", "abc1", "abc"],
+    "answer": "1abc",
+    "topic": "Python"
+  },
+  {
+    "id": 41,
+    "question": "Which symbol used for string?",
+    "options": ["''", "\"\"", "Both", "None"],
+    "answer": "Both",
+    "topic": "Python"
+  },
+  {
+    "id": 42,
+    "question": "Which is correct assignment?",
+    "options": ["x=5", "5=x", "x==5", "x:5"],
+    "answer": "x=5",
+    "topic": "Python"
+  },
+  {
+    "id": 43,
+    "question": "Which operator is equality?",
+    "options": ["==", "=", "!=", "<"],
+    "answer": "==",
+    "topic": "Python"
+  },
+  {
+    "id": 44,
+    "question": "Which operator is not equal?",
+    "options": ["!=", "==", "<>", "="],
+    "answer": "!=",
+    "topic": "Python"
+  },
+  {
+    "id": 45,
+    "question": "Which keyword handles exception?",
+    "options": ["try", "catch", "error", "handle"],
+    "answer": "try",
+    "topic": "Python"
+  },
+  {
+    "id": 46,
+    "question": "Which keyword catches exception?",
+    "options": ["except", "catch", "handle", "error"],
+    "answer": "except",
+    "topic": "Python"
+  },
+  {
+    "id": 47,
+    "question": "Which keyword for finally block?",
+    "options": ["finally", "end", "last", "finish"],
+    "answer": "finally",
+    "topic": "Python"
+  },
+  {
+    "id": 48,
+    "question": "Which function converts to int?",
+    "options": ["int()", "str()", "float()", "bool()"],
+    "answer": "int()",
+    "topic": "Python"
+  },
+  {
+    "id": 49,
+    "question": "Which function converts to string?",
+    "options": ["str()", "int()", "float()", "bool()"],
+    "answer": "str()",
+    "topic": "Python"
+  },
+  {
+    "id": 50,
+    "question": "Which function converts to float?",
+    "options": ["float()", "int()", "str()", "bool()"],
+    "answer": "float()",
+    "topic": "Python"
+  },
+  {
+    "id": 51,
+    "question": "Which keyword is used for else condition?",
+    "options": ["else", "otherwise", "alt", "ifnot"],
+    "answer": "else",
+    "topic": "Python"
+  },
+  {
+    "id": 52,
+    "question": "Which keyword for multiple conditions?",
+    "options": ["elif", "else if", "elseif", "ifelse"],
+    "answer": "elif",
+    "topic": "Python"
+  },
+  {
+    "id": 53,
+    "question": "Which operator is greater than?",
+    "options": [">", "<", "=", "!="],
+    "answer": ">",
+    "topic": "Python"
+  },
+  {
+    "id": 54,
+    "question": "Which operator is less than?",
+    "options": ["<", ">", "=", "!="],
+    "answer": "<",
+    "topic": "Python"
+  },
+  {
+    "id": 55,
+    "question": "Which operator is logical AND?",
+    "options": ["and", "&", "&&", "AND"],
+    "answer": "and",
+    "topic": "Python"
+  },
+  {
+    "id": 150,
+    "question": "Which conversion gives float?",
+    "options": ["float(10)", "int(10)", "str(10)", "bool(10)"],
+    "answer": "float(10)",
+    "topic": "Python"
+  }
+]
