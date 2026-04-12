@@ -2,19 +2,19 @@ import { useState, useEffect } from "react";
 import { getTopics } from "../services/firebase";
 import "../App.css";
 
-function TopicSelector({ onSelect }) {
+function TopicSelector({ subject, onSelect }) {
   const [topics, setTopics] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadTopics = async () => {
       setLoading(true);
-      const loadedTopics = await getTopics();
+      const loadedTopics = await getTopics(subject);
       setTopics(loadedTopics);
       setLoading(false);
     };
     loadTopics();
-  }, []);
+  }, [subject]);
 
   if (loading) {
     return (
@@ -45,18 +45,17 @@ function TopicSelector({ onSelect }) {
     <div className="topic-selector">
       <div className="login-wrapper">
         <div className="topic-card">
-          <h2>Select Quiz Topic</h2>
-          <div className="topics-grid">
-            {topics.map((topic) => (
+          <h2>{subject ? `Select ${subject} Topic` : "Select Quiz Topic"}</h2>
+          {topics.map((topic, index) => (
+            <div key={topic.id} className="topic-list-item">
               <button
-                key={topic.id}
                 className="topic-btn"
                 onClick={() => onSelect(topic.topic_name)}
               >
-                {topic.topic_name}
+                {index + 1} . {topic.topic_name}
               </button>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

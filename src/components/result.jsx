@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { getQuestionsByTopic } from "../services/firebase";
 import "../App.css";
 
-function Result({ score, answers, topic }) {
+function Result({ score, answers, topic, subject }) {
   const [filteredQuestions, setFilteredQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadQuestions = async () => {
       setLoading(true);
-      const questions = await getQuestionsByTopic(topic);
+      const questions = await getQuestionsByTopic(topic, subject);
       setFilteredQuestions(questions || []);
       setLoading(false);
     };

@@ -1,5 +1,16 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, query, where, addDoc, serverTimestamp, doc } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  getDoc,
+  query,
+  where,
+  addDoc,
+  setDoc,
+  serverTimestamp,
+  doc,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDMDqHl-VY0S4QwMvUbLruaI3X7cD_9pQY",
@@ -15,25 +26,59 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
-// Get all topics
-export const getTopics = async () => {
+const getCollectionNameForSubject = (subject = "") =>
+  subject ? `${subject.toLowerCase().replace(/\s+/g, "_")}_topics` : "snowflake_topics";
+
+// Get all topics or subject-specific topics
+export const getTopics = async (subject = "") => {
   try {
-    const querySnapshot = await getDocs(collection(db, "snowflake_topics"));
-    return querySnapshot.docs
-      .map(doc => {
-        const data = doc.data();
-        return data?.topic_name
-          ? { id: doc.id, topic_name: data.topic_name }
-          : null;
-      })
-      .filter(Boolean);
+    const collectionName = getCollectionNameForSubject(subject);
+    const querySnapshot = await getDocs(collection(db, collectionName));
+    if (querySnapshot.empty) {
+      return [];
+    }
+
+    return querySnapshot.docs.flatMap((docSnapshot) => {
+      const data = docSnapshot.data();
+      const value = data?.topic_name;
+      if (Array.isArray(value)) {
+        return value.map((topic, index) => ({
+          id: `${docSnapshot.id}-${index}`,
+          topic_name: topic,
+        }));
+      }
+      if (typeof value === "string") {
+        return [{ id: docSnapshot.id, topic_name: value }];
+      }
+      if (docSnapshot.id && docSnapshot.id !== "topics_list") {
+        return [{ id: docSnapshot.id, topic_name: docSnapshot.id }];
+      }
+      return [];
+    });
   } catch (error) {
     console.error("Error getting topics:", error);
-    // return [
-    //   { id: "1", topic_name: "SnowPipe" },
-    //   { id: "2", topic_name: "Streams" },
-    // ];
+    return [];
   }
+};
+
+export const addTopic = async (topicName, subject = "") => {
+  if (!topicName || !topicName.trim()) {
+    throw new Error("Topic name is required.");
+  }
+
+  const normalizedName = topicName.trim();
+  const collectionName = getCollectionNameForSubject(subject);
+  const topicDocRef = doc(db, collectionName, normalizedName);
+  const existingDoc = await getDoc(topicDocRef);
+
+  if (existingDoc.exists()) {
+    throw new Error(`Topic '${normalizedName}' already exists.`);
+  }
+
+  await setDoc(topicDocRef, {
+    topic_name: normalizedName,
+  });
+  return topicDocRef.id;
 };
 
 const normalizeTopicName = (topic) => {
@@ -61,26 +106,31 @@ const findExistingSubcollectionName = async (topicDocRef, candidates) => {
 };
 
 // Get questions by topic
-export const getQuestionsByTopic = async (topic) => {
+export const getQuestionsByTopic = async (topic, subject = "") => {
   try {
     if (!topic) {
       return [];
     }
 
-    const topicDocRef = doc(db, "questions", topic);
-    const subcollectionName = await findExistingSubcollectionName(
-      topicDocRef,
-      getTopicSubcollectionCandidates(topic)
-    );
+    const rootCollectionName = subject
+      ? `${subject.toLowerCase().replace(/\s+/g, "_")}_questions`
+      : "questions";
+    const topicDocRef = doc(db, rootCollectionName, topic);
+    const subcollectionName = subject
+      ? "questions"
+      : await findExistingSubcollectionName(
+          topicDocRef,
+          getTopicSubcollectionCandidates(topic),
+        );
     const q = collection(topicDocRef, subcollectionName);
 
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.error("Error getting questions:", error);
-    const localQuestions = (await import('./localQuestions.js')).default;
+    const localQuestions = (await import("./localQuestions.js")).default;
     if (topic) {
-      return localQuestions.filter(q => q.topic === topic);
+      return localQuestions.filter((q) => q.topic === topic);
     }
     return localQuestions;
   }
@@ -100,7 +150,11 @@ export const addQuestion = async (questionData) => {
 };
 
 // Add multiple questions under a topic's nested subcollection
-export const addQuestionsToTopic = async (topic, questions) => {
+export const addQuestionsToTopic = async (
+  topic,
+  questions,
+  subject = "",
+) => {
   if (!topic) {
     throw new Error("Topic is required.");
   }
@@ -108,11 +162,16 @@ export const addQuestionsToTopic = async (topic, questions) => {
     throw new Error("Questions array is required.");
   }
 
-  const topicDocRef = doc(db, "questions", topic);
-  const subcollectionName = await findExistingSubcollectionName(
-    topicDocRef,
-    getTopicSubcollectionCandidates(topic)
-  );
+  const rootCollectionName = subject
+    ? `${subject.toLowerCase().replace(/\s+/g, "_")}_questions`
+    : "questions";
+  const topicDocRef = doc(db, rootCollectionName, topic);
+  const subcollectionName = subject
+    ? "questions"
+    : await findExistingSubcollectionName(
+        topicDocRef,
+        getTopicSubcollectionCandidates(topic),
+      );
 
   for (const question of questions) {
     const questionData = {

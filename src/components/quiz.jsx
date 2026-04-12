@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getQuestionsByTopic } from "../services/firebase";
 import "../App.css";
 
-function Quiz({ onSubmit, topic }) {
+function Quiz({ onSubmit, topic, subject }) {
   const [answers, setAnswers] = useState({});
   const [filteredQuestions, setFilteredQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +10,7 @@ function Quiz({ onSubmit, topic }) {
   useEffect(() => {
     const loadQuestions = async () => {
       setLoading(true);
-      const questions = await getQuestionsByTopic(topic);
+      const questions = await getQuestionsByTopic(topic, subject);
       setFilteredQuestions(questions || []);
       setLoading(false);
     };
