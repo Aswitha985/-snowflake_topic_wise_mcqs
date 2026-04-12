@@ -1,28 +1,20 @@
-import admin from "firebase-admin";
-import fs from "fs";
+import { initializeApp, cert } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
+import serviceAccount from "./serviceAccountKey.json" assert { type: "json" };
+import questions from "./src/services/questions.json" assert { type: "json" };
 
-// Read JSON file manually
-const serviceAccount = JSON.parse(
-  fs.readFileSync(new URL("./serviceAccountKey.json", import.meta.url))
-);
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+initializeApp({
+  credential: cert(serviceAccount)
 });
 
-const db = admin.firestore();
+const db = getFirestore();
 
-async function uploadQuestions() {
-  const questions = [
-    { id: 1, question: "What is Python?" },
-    { id: 2, question: "What is a variable?" }
-  ];
-
+async function uploadData() {
   for (let q of questions) {
-    await db.collection("questions").doc(String(q.id)).set(q);
+    await db.collection("questions").add(q);
+    console.log("Uploaded:", q.question);
   }
-
-  console.log("✅ Uploaded successfully");
+  console.log("All questions uploaded!");
 }
 
-uploadQuestions();
+uploadData();

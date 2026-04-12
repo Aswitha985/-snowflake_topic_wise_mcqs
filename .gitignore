@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 src/services/serviceAccountKey.json
+upload.js
+serviceAccountKey.json

@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+/*import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, query, where, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -58,4 +58,19 @@ export const addQuestion = async (questionData) => {
     console.error("Error adding question: ", error);
     throw error;
   }
+};*/
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+   apiKey: "AIzaSyDMDqHl-VY0S4QwMvUbLruaI3X7cD_9pQY",
+   authDomain: "snowflake-mcq-app.firebaseapp.com",
+   projectId: "snowflake-mcq-app",
+   storageBucket: "snowflake-mcq-app.firebasestorage.app",
+   messagingSenderId: "108356901848",
+   appId: "1:108356901848:web:75e86b2356d9dbdb7130ad"
 };
+
+const app = initializeApp(firebaseConfig);
+
+export const db = getFirestore(app);
