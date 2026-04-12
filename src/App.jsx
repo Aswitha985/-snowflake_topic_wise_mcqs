@@ -3,6 +3,7 @@ import Login from "./components/login";
 import Quiz from "./components/quiz";
 import Result from "./components/result";
 import TopicSelector from "./components/TopicSelector";
+import UploadJsonPage from "./components/data_adding_to_firebase/UploadJsonPage";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -10,6 +11,7 @@ function App() {
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [answers, setAnswers] = useState({});
+  const [showUploadPage, setShowUploadPage] = useState(false);
 
   return (
     <div className="app-bg">
@@ -36,7 +38,20 @@ function App() {
           ✨
         </span>
       </div>
-      {!user ? (
+      {user && (
+        <div style={{ textAlign: "center", margin: "16px 0" }}>
+          <button
+            className="submit-btn"
+            onClick={() => setShowUploadPage(!showUploadPage)}
+          >
+            {showUploadPage ? "Back to Quiz" : "Go to Upload JSON Page"}
+          </button>
+        </div>
+      )}
+
+      {showUploadPage ? (
+        <UploadJsonPage />
+      ) : !user ? (
         <Login onLogin={setUser} />
       ) : !selectedTopic ? (
         <TopicSelector onSelect={setSelectedTopic} />

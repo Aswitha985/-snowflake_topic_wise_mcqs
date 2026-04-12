@@ -29,11 +29,35 @@ export const getTopics = async () => {
       .filter(Boolean);
   } catch (error) {
     console.error("Error getting topics:", error);
-    return [
-      { id: "1", topic_name: "SnowPipe" },
-      { id: "2", topic_name: "Streams" },
-    ];
+    // return [
+    //   { id: "1", topic_name: "SnowPipe" },
+    //   { id: "2", topic_name: "Streams" },
+    // ];
   }
+};
+
+const normalizeTopicName = (topic) => {
+  return topic.toLowerCase().replace(/\s+/g, "");
+};
+
+const getTopicSubcollectionCandidates = (topic) => {
+  const normalized = normalizeTopicName(topic);
+  return [
+    `${topic}_topic_questions`,
+    `${topic.toLowerCase().replace(/\s+/g, "_")}_topic_questions`,
+    `${normalized}_topic_questions`,
+    `${normalized.replace(/s$/, "")}_topic_questions`,
+  ];
+};
+
+const findExistingSubcollectionName = async (topicDocRef, candidates) => {
+  for (const name of [...new Set(candidates)]) {
+    const snapshot = await getDocs(collection(topicDocRef, name));
+    if (!snapshot.empty) {
+      return name;
+    }
+  }
+  return candidates[0];
 };
 
 // Get questions by topic
@@ -43,13 +67,11 @@ export const getQuestionsByTopic = async (topic) => {
       return [];
     }
 
-    const subcollectionMap = {
-      SnowPipe: "snowpipe_topic_questions",
-      Streams: "stream_topic_questions",
-    };
-
-    const subcollectionName = subcollectionMap[topic] || `${topic.toLowerCase().replace(/\s+/g, "")}_topic_questions`;
     const topicDocRef = doc(db, "questions", topic);
+    const subcollectionName = await findExistingSubcollectionName(
+      topicDocRef,
+      getTopicSubcollectionCandidates(topic)
+    );
     const q = collection(topicDocRef, subcollectionName);
 
     const querySnapshot = await getDocs(q);
@@ -75,5 +97,32 @@ export const addQuestion = async (questionData) => {
     console.error("Error adding question: ", error);
     throw error;
   }
+};
+
+// Add multiple questions under a topic's nested subcollection
+export const addQuestionsToTopic = async (topic, questions) => {
+  if (!topic) {
+    throw new Error("Topic is required.");
+  }
+  if (!Array.isArray(questions) || questions.length === 0) {
+    throw new Error("Questions array is required.");
+  }
+
+  const topicDocRef = doc(db, "questions", topic);
+  const subcollectionName = await findExistingSubcollectionName(
+    topicDocRef,
+    getTopicSubcollectionCandidates(topic)
+  );
+
+  for (const question of questions) {
+    const questionData = {
+      ...question,
+      topic,
+      createdAt: serverTimestamp(),
+    };
+    await addDoc(collection(topicDocRef, subcollectionName), questionData);
+  }
+
+  return questions.length;
 };
 
